@@ -13,10 +13,10 @@
 </head>
 <body>
 <div align="center">
-    <h2><a href="/Book">Book Management</a></h2>
-    <h2><a href="/Book?action=create">Create New Book</a></h2>
+    <h2><a href="/Book">QUAN LY SACH</a></h2>
+    <h2><a href="/Book?action=create">Them Sach Moi</a></h2>
     <form method="get">
-        <h2>Find By Name:</h2>
+        <h2>Tim Theo Ten Sach:</h2>
         <input type="text" name="name">
         <input type="submit" value="Tim Kiem">
     </form>
