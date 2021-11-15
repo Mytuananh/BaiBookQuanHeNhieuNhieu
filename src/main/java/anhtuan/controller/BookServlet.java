@@ -67,7 +67,7 @@ public class BookServlet extends HttpServlet {
     private void listBooks(HttpServletRequest request, HttpServletResponse response) {
         List<Book> bookList;
         String name = request.getParameter("name");
-        if (name != null) {
+        if (name != null && name != "") {
             bookList = bookService.findByName(name);
         } else {
             bookList = bookService.findAll();
