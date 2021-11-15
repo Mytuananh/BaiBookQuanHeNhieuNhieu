@@ -15,7 +15,7 @@ import java.util.List;
 
 @WebServlet(name = "BookServlet", value = "/Book")
 public class BookServlet extends HttpServlet {
-    private IBookService bookService = new BookService();
+    private BookService bookService = new BookService();
     private CategoryService categoryService = new CategoryService();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -65,7 +65,14 @@ public class BookServlet extends HttpServlet {
     }
 
     private void listBooks(HttpServletRequest request, HttpServletResponse response) {
-        List<Book> bookList = bookService.findAll();
+        List<Book> bookList;
+        String name = request.getParameter("name");
+        if (name != null) {
+            bookList = bookService.findByName(name);
+        } else {
+            bookList = bookService.findAll();
+        }
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("books/list.jsp");
         request.setAttribute("bookList", bookList);
         try {

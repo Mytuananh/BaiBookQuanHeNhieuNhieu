@@ -93,6 +93,38 @@ public class BookService implements IBookService{
             return rowSave;
     }
 
+    public List<Book> findByName(String name) {
+        List<Book> bookList = new ArrayList<>();
+        List<Category> categories = new ArrayList<>();
+        Book book;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from book where name = ?");
+            preparedStatement.setString(1, name);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int bId = rs.getInt("bId");
+                int price = rs.getInt("price");
+                String description = rs.getString("description");
+                categories = categoryService.findAllCategoryForOneBook(bId);
+                book = new Book(bId, name, price, description, categories);
+                bookList.add(book);
+            }
+//            PreparedStatement preparedStatement1 = connection.prepareStatement("select * from book_category where bId = ?");
+//            preparedStatement1.setInt(1, book.getId());
+//            ResultSet rs1 = preparedStatement1.executeQuery();
+//            while (rs1.next()) {
+//                int cId = rs1.getInt("cId");
+//                Category category = categoryService.findById(cId);
+//                categories.add(category);
+//            }
+//            book.setCategories(categories);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return bookList;
+    }
+
     @Override
     public boolean delete(int bId) {
         boolean rowDelete = false;
